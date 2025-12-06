@@ -1,0 +1,41 @@
+@import url("root");
+@import url("forms/forms.css");
+
+body {
+    color: var(--color-main);
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    background-color: var(--color-main);
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    width: 25em;
+    height: 400px;
+    border: var(--color-default) solid 2px;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    margin-top: 100px;
+    background-color: var(--color-default);
+    padding: 0;
+}
+
+.introduce{
+    text-align: center;
+    margin-top: 125px;
+    color: var(--color-default);
+    font-weight: 500;
+    font-size: 35px;
+    font-family: var(--font);
+}
+
+.container p{
+    font-size: 43px;
+    color: #000000;
+    opacity: 0.8;
+    margin-top: -100px;
+}
+
