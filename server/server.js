@@ -7,6 +7,8 @@ import { fileURLToPath } from "url";
 import csrf from "csurf"
 import cookieParser from "cookie-parser"
 import Middleware from "../src/middleware/middleware.js"
+import MongoStore from "connect-mongo"
+import session from "express-session"
 
 dotenv.config();
 
@@ -22,6 +24,7 @@ class ServerConfiguration{
         app.set("view engine", "ejs");
 
         app.use(cookieParser());
+        app.use(this.sessionOptions());
         app.use(express.urlencoded({extended: true}));
         app.use(express.static(path.resolve(__dirname, "..", "public")));
         app.use(express.json());
@@ -49,6 +52,22 @@ class ServerConfiguration{
         .then(() => {
             app.emit("ready");
         }).catch(e => console.log(e));
+    }
+
+    sessionOptions(){
+        return session({
+            secret: process.env.SECRET,
+            store: MongoStore.create({
+                mongoUrl: process.env.CONNECTIONSTRING,
+                collectionName: "sessions",
+            }),
+            resave: false,
+            saveUninitialized: false,
+            cookie: {
+                maxAge: 1000 * 60 * 60 * 24 * 7,
+                httpOnly: true
+            }
+        });
     }
 
 }
